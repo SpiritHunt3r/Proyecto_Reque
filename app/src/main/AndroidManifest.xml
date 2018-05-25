@@ -24,7 +24,8 @@
         <activity
             android:name=".Pantallas.RegisterActivity"
             android:label="Registration" />
-        <activity android:name=".Pantallas.ClienteActivity"></activity>
+        <activity android:name=".Pantallas.ClienteActivity"
+            android:label="Cliente"></activity>
     </application>
 
 </manifest>

@@ -11,7 +11,7 @@ public class Usuario {
     private String nombre;
     private Boolean is_active;
     private Boolean is_admin;
-
+    private Pelicula[] favoritas;
 
     public Usuario(String email,String nombre, Boolean is_active, Boolean is_admin) {
         this.nombre = nombre;
@@ -19,6 +19,16 @@ public class Usuario {
         this.is_active = is_active;
         this.is_admin = is_admin;
 
+    }
+
+    public Usuario () {}
+
+    public Pelicula[] getFavoritas() {
+        return favoritas;
+    }
+
+    public void setFavoritas(Pelicula[] favoritas) {
+        this.favoritas = favoritas;
     }
 
     public String getNombre() {

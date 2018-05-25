@@ -3,6 +3,7 @@ package com.example.juan.proyecto_reque.Fragments;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,9 +47,9 @@ public class PeliculasFragment extends android.support.v4.app.Fragment {
     }
 
 
-    public void cargarLista(Context context){
+    public void cargarLista(final Context context){
 
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Peliculas");
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Peliculas");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -56,7 +57,7 @@ public class PeliculasFragment extends android.support.v4.app.Fragment {
                     Pelicula pr = ds.getValue(Pelicula.class);
                     arrayList.add(pr);
                 }
-
+                adapter = new listaPeliculas(arrayList,context);
                 peliculas.setAdapter(adapter);
             }
             @Override

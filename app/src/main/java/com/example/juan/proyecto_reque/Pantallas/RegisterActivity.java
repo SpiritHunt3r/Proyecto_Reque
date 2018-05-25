@@ -39,8 +39,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         ref = FirebaseDatabase.getInstance().getReference();
-        Pelicula a = new Pelicula("Star Wars","George Lucas","1977","Ciencia Ficcion","Mark Hamill,Harrison Ford,Carrie Fisher,Peter Cushing,Alec Guinness");
-        ref.child("Peliculas").child(UUID.randomUUID().toString()).setValue(a);
 
     }
 
@@ -65,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
                             {
                                 firebaseUser = auth.getCurrentUser();
 
-                                Usuario u = new Usuario(ActualEmail,Nombre,true,false);
+                                Usuario u = new Usuario(ActualEmail,Nombre,true,true);
                                 ref.child("Usuarios").child(firebaseUser.getUid()).setValue(u);
                                 ref.child("Usuarios").child(firebaseUser.getUid()).child("Peliculas");
                                 Toast.makeText(getApplicationContext(),"Usuario creado correctamente",Toast.LENGTH_SHORT).show();
