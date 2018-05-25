@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Pantallas.RegisterActivity">
+
+    <Button
+        android:id="@+id/registerBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="141dp"
+        android:background="@color/colorPrimary"
+        android:onClick="createUser"
+        android:text="REGISTER"
+        android:textColor="#FFFFFFFF"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="330dp" />
+
+    <Button
+        android:id="@+id/backBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="64dp"
+        android:background="@color/colorPrimary"
+        android:onClick="backMain"
+        android:text="BACK"
+        android:textColor="#FFFFFFFF"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="330dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="264dp"
+
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="42dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/nombreText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Enter your name"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/emailText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Enter e-mail"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/passwordText"
+            android:layout_width="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Enter password"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/passwordText2"
+            android:layout_width="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Enter password again"
+            android:inputType="textPassword" />
+    </LinearLayout>
+</RelativeLayout>
