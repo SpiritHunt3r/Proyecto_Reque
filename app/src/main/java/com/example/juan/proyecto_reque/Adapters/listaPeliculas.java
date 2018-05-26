@@ -51,7 +51,7 @@ public class listaPeliculas extends  BaseAdapter{
         TextView tv_titulo = (TextView) vistaItem.findViewById(R.id.tv_titulo);
         TextView tv_director = (TextView) vistaItem.findViewById(R.id.tv_director);
         TextView tv_calificacion = (TextView) vistaItem.findViewById(R.id.tv_calificacion);
-        if (arrayList.get(position).getFoto().equals("NULL")){
+        if (arrayList.get(position).getFoto().equals("")){
             tv_imagen.setImageResource(R.drawable.proyector);
         }
         else{

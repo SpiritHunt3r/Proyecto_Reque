@@ -2,12 +2,16 @@ package com.example.juan.proyecto_reque.Fragments;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.juan.proyecto_reque.Adapters.listaPeliculas;
 import com.example.juan.proyecto_reque.Clases.Pelicula;
@@ -46,8 +50,38 @@ public class FavoritosFragment extends android.support.v4.app.Fragment {
         peliculas = rootView.findViewById(R.id.LV_peliculas);
         arrayList = new ArrayList<>();
         auth = FirebaseAuth.getInstance();
+
+
+        peliculas.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                final String IdN = arrayList.get(position).getNombre();
+                new AlertDialog.Builder(getActivity())
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Eliminando favorito")
+                        .setMessage("Desea eliminar " + IdN + " sus favoritos?")
+                        .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Toast.makeText(getContext(),"Se ha eliminado "+ IdN +" de Favoritos",Toast.LENGTH_SHORT).show();
+                                DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Usuarios").child(user.getUid()).child("Peliculas").child(IdN);
+                                myRef.removeValue();
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+                return false;
+            }
+        });
+
+
+
+
+
         cargarLista(rootView.getContext());
         return rootView;
+
+
     }
 
 
@@ -59,7 +93,7 @@ public class FavoritosFragment extends android.support.v4.app.Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 for(DataSnapshot ds:dataSnapshot.getChildren()){
-                    Pelicula pr = ds.child("Info").getValue(Pelicula.class);
+                    Pelicula pr = ds.getValue(Pelicula.class);
                     arrayList.add(pr);
                 }
                 adapter = new listaPeliculas(arrayList,context);
