@@ -63,9 +63,8 @@ public class RegisterActivity extends AppCompatActivity {
                             {
                                 firebaseUser = auth.getCurrentUser();
 
-                                Usuario u = new Usuario(ActualEmail,Nombre,true,true);
-                                ref.child("Usuarios").child(firebaseUser.getUid()).setValue(u);
-                                ref.child("Usuarios").child(firebaseUser.getUid()).child("Peliculas");
+                                Usuario u = new Usuario(ActualEmail,Nombre,true,false);
+                                ref.child("Usuarios").child(firebaseUser.getUid()).child("Personal Info").setValue(u);
                                 Toast.makeText(getApplicationContext(),"Usuario creado correctamente",Toast.LENGTH_SHORT).show();
                                 finish();
                                 Intent i = new Intent(getApplicationContext(),MainActivity.class);

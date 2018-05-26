@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Pantallas.AddPeliculaActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="134dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imgView"
+                android:layout_width="224dp"
+                android:layout_height="137dp"
+                android:layout_weight="1"
+                android:background="@android:drawable/picture_frame" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btnChoose"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="268dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_weight="1"
+                    android:onClick="selectImg"
+                    android:text="Seleccionar portada" />
+
+                <EditText
+                    android:id="@+id/descriptionText"
+                    android:layout_width="264dp"
+                    android:layout_height="101dp"
+                    android:layout_below="@+id/btnChoose"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:gravity="top|left"
+                    android:hint="Descripcion"
+                    android:inputType="textPersonName" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/nombreText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="Nombre"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/directorText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="Director"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/annoText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="Año"
+            android:inputType="numberDecimal" />
+
+        <Spinner
+            android:id="@+id/generoSpinner"
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/actoresText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="Actores [Act1,Act2,...,AtcN]"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/agregarBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:background="@color/colorPrimary"
+            android:onClick="updatePelicula"
+            android:text="agregar Pelicula" />
+
+        <Button
+            android:id="@+id/atrasBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:background="@color/colorPrimary"
+            android:text="Atras" />
+
+    </LinearLayout>
+
+</RelativeLayout>

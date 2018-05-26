@@ -6,6 +6,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.example.juan.proyecto_reque.Fragments.FavoritosFragment;
 import com.example.juan.proyecto_reque.Fragments.PeliculasFragment;
 import com.example.juan.proyecto_reque.R;
 
@@ -23,7 +24,7 @@ public class ClienteActivity extends AppCompatActivity {
                     transaction.replace(R.id.frame_contenedor, new PeliculasFragment()).commit();
                     return true;
                 case R.id.navigation_favoritos:
-                    transaction.replace(R.id.frame_contenedor, new PeliculasFragment()).commit();
+                    transaction.replace(R.id.frame_contenedor, new FavoritosFragment()).commit();
                     return true;
                 case R.id.navigation_recomendadas:
                     transaction.replace(R.id.frame_contenedor, new PeliculasFragment()).commit();

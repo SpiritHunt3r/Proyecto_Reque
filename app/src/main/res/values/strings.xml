@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">Proyecto-Reque</string>
+    <string-array name="Generos">
+        <item>Genero</item>
+        <item>Accion</item>
+        <item>Animacion</item>
+        <item>Belico</item>
+        <item>Ciencia Ficcion</item>
+        <item>Cine Catastrofe</item>
+        <item>Comedia</item>
+        <item>Drama</item>
+        <item>Fantasia</item>
+        <item>Historico</item>
+        <item>Melodrama</item>
+        <item>Musical</item>
+        <item>Policiaco</item>
+        <item>Pornografico</item>
+        <item>Romance</item>
+        <item>Suspenso</item>
+        <item>Terror</item>
+        <item>Western</item>
+    </string-array>
 </resources>

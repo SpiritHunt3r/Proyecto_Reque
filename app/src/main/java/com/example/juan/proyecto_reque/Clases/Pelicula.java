@@ -6,21 +6,24 @@ public class Pelicula {
     private String anno;
     private String genero;
     private String actores;
+    private String descripcion;
     private String foto = null;
     private Voto[] votos = null;
-    private Comentario[] comentarios;
     private String keywords;
 
     public Pelicula() {
 
     }
 
-    public Pelicula(String nombre, String director, String anno, String genero, String actores) {
+    public Pelicula(String foto,String nombre, String director, String anno, String genero,String descripcion, String actores, String keywords) {
+        this.foto = foto;
         this.nombre = nombre;
         this.director = director;
         this.anno = anno;
         this.genero = genero;
+        this.descripcion =descripcion;
         this.actores = actores;
+        this.keywords = keywords;
     }
 
     public String getFoto() {
@@ -77,14 +80,6 @@ public class Pelicula {
 
     public void setVotos(Voto[] votos) {
         this.votos = votos;
-    }
-
-    public Comentario[] getComentarios() {
-        return comentarios;
-    }
-
-    public void setComentarios(Comentario[] comentarios) {
-        this.comentarios = comentarios;
     }
 
     public String getKeywords() {

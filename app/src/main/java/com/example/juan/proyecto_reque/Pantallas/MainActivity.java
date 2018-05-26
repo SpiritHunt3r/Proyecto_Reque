@@ -61,13 +61,14 @@ public class MainActivity extends AppCompatActivity {
 
                                 finish();
 
-                                ref = ref.child("Usuarios").child(auth.getCurrentUser().getUid());
+                                ref = ref.child("Usuarios").child(auth.getCurrentUser().getUid()).child("Personal Info");
                                 ref.addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         Usuario u = dataSnapshot.getValue(Usuario.class);
                                         if (u.getIs_admin()){
-
+                                            Intent i = new Intent(getApplicationContext(),AddPeliculaActivity.class);
+                                            startActivity(i);
                                         }
                                         else{
                                             Intent i = new Intent(getApplicationContext(),ClienteActivity.class);

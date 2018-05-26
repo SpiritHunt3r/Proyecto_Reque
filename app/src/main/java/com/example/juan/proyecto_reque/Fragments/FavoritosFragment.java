@@ -22,12 +22,15 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class PeliculasFragment extends android.support.v4.app.Fragment {
+public class FavoritosFragment extends android.support.v4.app.Fragment {
 
     private View rootView;
     private ListView peliculas;
     private listaPeliculas adapter;
+    private FirebaseAuth auth;
+    private FirebaseUser user;
     private ArrayList<Pelicula> arrayList = null;
+
 
 
     @Override
@@ -42,18 +45,19 @@ public class PeliculasFragment extends android.support.v4.app.Fragment {
         rootView = inflater.inflate(R.layout.fragment_peliculas,container,false);
         peliculas = rootView.findViewById(R.id.LV_peliculas);
         arrayList = new ArrayList<>();
-
+        auth = FirebaseAuth.getInstance();
         cargarLista(rootView.getContext());
         return rootView;
     }
 
 
     public void cargarLista(final Context context){
-
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Peliculas");
+        user = auth.getCurrentUser();
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Usuarios").child(user.getUid()).child("Peliculas");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 for(DataSnapshot ds:dataSnapshot.getChildren()){
                     Pelicula pr = ds.child("Info").getValue(Pelicula.class);
                     arrayList.add(pr);
