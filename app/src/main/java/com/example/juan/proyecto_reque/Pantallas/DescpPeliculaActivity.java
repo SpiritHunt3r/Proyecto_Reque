@@ -17,9 +17,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.juan.proyecto_reque.Adapters.listaComentarios;
+import com.example.juan.proyecto_reque.Adapters.listaPeliculas;
 import com.example.juan.proyecto_reque.Clases.Comentario;
 import com.example.juan.proyecto_reque.Clases.Pelicula;
 import com.example.juan.proyecto_reque.Clases.Usuario;
@@ -36,6 +39,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import static java.security.AccessController.getContext;
@@ -50,6 +54,9 @@ public class DescpPeliculaActivity extends AppCompatActivity {
     private TextView des,nom,dir,anno,gen,acts,cal;
     Pelicula u;
     String Idn;
+    private listaComentarios adapter;
+    private ArrayList<Comentario> arrayListCom;
+    private ListView comments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +71,10 @@ public class DescpPeliculaActivity extends AppCompatActivity {
         gen = findViewById(R.id.generoText);
         acts = findViewById(R.id.actoresText);
         cal = findViewById(R.id.calificacionText);
+
+        comments = findViewById(R.id.comentariosList);
+        arrayListCom = new ArrayList<>();
+
 
         auth = FirebaseAuth.getInstance();
 
@@ -90,11 +101,6 @@ public class DescpPeliculaActivity extends AppCompatActivity {
                     pvoto++;
                 }
                 u.setVotos(votos);
-
-
-
-
-
                 if (!(u.getDescripcion() == null))
                     des.setText(u.getDescripcion());
                 nom.setText("Nombre: "+u.getNombre());
@@ -103,7 +109,7 @@ public class DescpPeliculaActivity extends AppCompatActivity {
                 gen.setText("Genero: "+u.getGenero());
                 if (!(u.getActores()== null))
                     acts.setText("Actores: " + u.getActores());
-                cal.setText("Calificacion: "+String.valueOf(u.genCalification()));
+                cal.setText("Calificacion: " + String.format("%.2f",u.genCalification()));
                 if (u.getFoto().equals("NULL")){
                     portada.setImageResource(R.drawable.proyector);
                 }
@@ -118,6 +124,14 @@ public class DescpPeliculaActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+                DataSnapshot myCommt = dataSnapshot.child("Comentarios");
+                for (DataSnapshot cm: myCommt.getChildren()){
+                    Comentario tcm = cm.getValue(Comentario.class);
+                    Log.d("Commn",tcm.getUsername());
+                    arrayListCom.add(tcm);
+                }
+                adapter = new listaComentarios(arrayListCom,getApplicationContext());
+                comments.setAdapter(adapter);
 
             }
 
@@ -126,6 +140,8 @@ public class DescpPeliculaActivity extends AppCompatActivity {
 
             }
         });
+
+
 
     }
 

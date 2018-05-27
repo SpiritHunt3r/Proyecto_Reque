@@ -68,7 +68,7 @@ public class listaPeliculas extends  BaseAdapter{
 
         tv_titulo.setText(arrayList.get(position).getNombre());
         tv_director.setText(arrayList.get(position).getDirector());
-        tv_calificacion.setText("Calificacion: " + String.valueOf(arrayList.get(position).genCalification()));
+        tv_calificacion.setText("Calificacion: " + String.format("%.2f",arrayList.get(position).genCalification()));
         return vistaItem;
     }
 }

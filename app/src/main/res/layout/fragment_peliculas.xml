@@ -5,9 +5,14 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.PeliculasFragment">
 
+    <SearchView
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
     <ListView
         android:id="@+id/LV_peliculas"
         android:layout_width="match_parent"
+        android:layout_marginTop="30dp"
         android:layout_height="match_parent"></ListView>
 
 </FrameLayout>
