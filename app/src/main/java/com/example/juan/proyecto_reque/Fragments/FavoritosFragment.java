@@ -9,12 +9,15 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.style.UpdateLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -45,6 +48,9 @@ public class FavoritosFragment extends android.support.v4.app.Fragment {
     private ArrayList<Pelicula> arrayList = null;
     private Voto[] votos;
     private int pvoto;
+    private EditText filterText;
+
+
 
 
     @Override
@@ -60,6 +66,31 @@ public class FavoritosFragment extends android.support.v4.app.Fragment {
         peliculas = rootView.findViewById(R.id.LV_peliculas);
         arrayList = new ArrayList<>();
         auth = FirebaseAuth.getInstance();
+
+
+
+        filterText = rootView.findViewById(R.id.filter);
+        filterText.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                // TODO Auto-generated method stub
+                String text = filterText.getText().toString().toLowerCase();
+                adapter.filter(text);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1,
+                                          int arg2, int arg3) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onTextChanged(CharSequence arg0, int arg1, int arg2,
+                                      int arg3) {
+                // TODO Auto-generated method stub
+            }
+        });
 
         peliculas.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
@@ -121,14 +152,13 @@ public class FavoritosFragment extends android.support.v4.app.Fragment {
 
                     arrayList.add(pr);
                 }
-
+                adapter = new listaPeliculas(arrayList,context);
+                peliculas.setAdapter(adapter);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-
-
         });
         DatabaseReference myVot = FirebaseDatabase.getInstance().getReference().child("Peliculas");
         myVot.addValueEventListener(new ValueEventListener() {
@@ -155,6 +185,7 @@ public class FavoritosFragment extends android.support.v4.app.Fragment {
 
             }
         });
+
     }
 
 }

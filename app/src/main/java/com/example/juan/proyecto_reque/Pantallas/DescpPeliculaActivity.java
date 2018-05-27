@@ -82,6 +82,8 @@ public class DescpPeliculaActivity extends AppCompatActivity {
 
         des.setMovementMethod(new ScrollingMovementMethod());
 
+        acts.setMovementMethod(new ScrollingMovementMethod());
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         Idn = sharedPreferences.getString("Id_Pelicula","");
         ref = FirebaseDatabase.getInstance().getReference().child("Peliculas").child(Idn);

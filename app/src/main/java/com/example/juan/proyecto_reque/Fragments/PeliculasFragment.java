@@ -8,18 +8,22 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.juan.proyecto_reque.Adapters.listaPeliculas;
 import com.example.juan.proyecto_reque.Clases.Pelicula;
 import com.example.juan.proyecto_reque.Clases.Voto;
+import com.example.juan.proyecto_reque.Pantallas.ClienteActivity;
 import com.example.juan.proyecto_reque.Pantallas.DescpPeliculaActivity;
 import com.example.juan.proyecto_reque.Pantallas.MainActivity;
 import com.example.juan.proyecto_reque.R;
@@ -46,6 +50,7 @@ public class PeliculasFragment extends android.support.v4.app.Fragment {
     private Voto[] votos;
     private int pvoto;
     private Pelicula pr;
+    private EditText filterText;
 
 
     @Override
@@ -59,10 +64,35 @@ public class PeliculasFragment extends android.support.v4.app.Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_peliculas,container,false);
         peliculas = rootView.findViewById(R.id.LV_peliculas);
+        peliculas.setTextFilterEnabled(true);
         arrayList = new ArrayList<>();
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
 
+
+
+        filterText = rootView.findViewById(R.id.filter);
+        filterText.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                // TODO Auto-generated method stub
+                String text = filterText.getText().toString().toLowerCase();
+                adapter.filter(text);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1,
+                                          int arg2, int arg3) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onTextChanged(CharSequence arg0, int arg1, int arg2,
+                                      int arg3) {
+                // TODO Auto-generated method stub
+            }
+        });
 
 
 

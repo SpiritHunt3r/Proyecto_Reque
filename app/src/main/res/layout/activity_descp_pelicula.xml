@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
+        android:gravity="center"
         android:orientation="vertical">
 
         <LinearLayout
@@ -37,10 +38,10 @@
                     android:layout_height="37dp"
                     android:layout_below="@+id/btnChoose"
                     android:layout_weight="1"
-                    android:maxLines="7"
-                    android:scrollbars="vertical"
                     android:ems="10"
                     android:gravity="top|left"
+                    android:maxLines="7"
+                    android:scrollbars="vertical"
                     android:text="Sin descripcion" />
 
             </LinearLayout>
@@ -85,6 +86,8 @@
             android:id="@+id/actoresText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:scrollbars="horizontal"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="20dp"
             android:ems="10"
@@ -156,13 +159,26 @@
                 android:background="@color/colorPrimary"
                 android:onClick="addComment"
                 app:srcCompat="@android:drawable/sym_action_chat" />
+
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:gravity="center"
+            android:text="COMENTARIOS"
+            android:textStyle="bold" />
 
         <ListView
             android:id="@+id/comentariosList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="15dp">
+
 
         </ListView>
 

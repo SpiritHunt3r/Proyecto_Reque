@@ -2,6 +2,7 @@ package com.example.juan.proyecto_reque.Adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +51,7 @@ public class listaComentarios extends BaseAdapter {
         View vistaItem = layoutInflater.inflate(R.layout.listacomnt, parent, false);
         TextView tv_username = (TextView) vistaItem.findViewById(R.id.tv_username);
         TextView tv_comentario = (TextView) vistaItem.findViewById(R.id.tv_comentario);
-
+        tv_comentario.setMovementMethod(new ScrollingMovementMethod());
         tv_username.setText(arrayList.get(position).getUsername());
         tv_comentario.setText(arrayList.get(position).getComentario());
 

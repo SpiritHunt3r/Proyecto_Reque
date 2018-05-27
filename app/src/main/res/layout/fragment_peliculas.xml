@@ -5,14 +5,20 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.PeliculasFragment">
 
-    <SearchView
+    <EditText
+        android:id="@+id/filter"
         android:layout_width="match_parent"
-        android:layout_height="30dp" />
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:drawableLeft="@android:drawable/ic_menu_search"
+        android:hint="Buscar Pelicula"
+        android:inputType="textPersonName" />
 
     <ListView
         android:id="@+id/LV_peliculas"
         android:layout_width="match_parent"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:layout_height="match_parent"></ListView>
 
 </FrameLayout>
