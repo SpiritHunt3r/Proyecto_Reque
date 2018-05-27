@@ -10,7 +10,8 @@ public class Comentario {
         this.comentario = comentario;
     }
 
-
+    public Comentario() {
+    }
 
     public String getUsername() {
         return username;

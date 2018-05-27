@@ -46,7 +46,7 @@ public class AddPeliculaActivity extends AppCompatActivity {
     private FirebaseStorage storage;
     private StorageReference storageReference;
     private DatabaseReference rootRefence;
-    Spinner spinner;
+    private Spinner spinner;
 
 
     @Override
@@ -136,9 +136,8 @@ public class AddPeliculaActivity extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Void> task) {
                                             Toast.makeText(getApplicationContext(), "Pelicula Agregada Correctamente", Toast.LENGTH_SHORT).show();
                                             finish();
-                                            //Moverse cuando se agrege correctamente
-                                            //Intent i = new Intent(getApplicationContext(),ProfileActivity.class);
-                                            //startActivity(i);
+                                            Intent i = new Intent(getApplicationContext(),AddPeliculaActivity.class);
+                                            startActivity(i);
                                         }
                                     });
                         }

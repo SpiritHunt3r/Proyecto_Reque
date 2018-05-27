@@ -26,6 +26,14 @@ public class Pelicula {
         this.keywords = keywords;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
     public String getFoto() {
         return foto;
     }
@@ -90,8 +98,8 @@ public class Pelicula {
         this.keywords = keywords;
     }
 
-    public float genCalification(){
-        float cal = 0.0f;
+    public double genCalification(){
+        double cal = 0.0f;
         if (this.votos != null) {
             if (this.votos.length != 0) {
                 for (int i = 0; i < this.votos.length; i++) {

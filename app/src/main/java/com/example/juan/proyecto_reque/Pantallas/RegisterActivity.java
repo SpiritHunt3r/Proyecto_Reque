@@ -23,10 +23,10 @@ import java.util.UUID;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText email, pass, pass2, name;
-    FirebaseUser firebaseUser;
-    FirebaseAuth auth;
-    DatabaseReference ref;
+    private EditText email, pass, pass2, name;
+    private FirebaseUser firebaseUser;
+    private FirebaseAuth auth;
+    private DatabaseReference ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

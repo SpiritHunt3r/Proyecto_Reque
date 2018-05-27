@@ -23,10 +23,10 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText e1, e2;
+    private EditText e1, e2;
 
-    FirebaseAuth auth;
-    DatabaseReference ref;
+    private FirebaseAuth auth;
+    private DatabaseReference ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

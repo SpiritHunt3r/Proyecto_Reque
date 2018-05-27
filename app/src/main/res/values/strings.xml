@@ -20,4 +20,5 @@
         <item>Terror</item>
         <item>Western</item>
     </string-array>
+    <string name="title_activity_des_pelicula">Descripcion</string>
 </resources>

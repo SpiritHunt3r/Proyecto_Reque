@@ -2,14 +2,16 @@ package com.example.juan.proyecto_reque.Clases;
 
 public class Voto {
     private String username;
-    private Float Calificacion;
+    private Double Calificacion;
 
-    public Voto(String username, Float calificacion) {
+    public Voto(String username, Double calificacion) {
 
         this.username = username;
         this.Calificacion = calificacion;
     }
 
+    public Voto() {
+    }
 
     public String getUsername() {
         return username;
@@ -19,11 +21,11 @@ public class Voto {
         this.username = username;
     }
 
-    public Float getCalificacion() {
+    public double getCalificacion() {
         return Calificacion;
     }
 
-    public void setCalificacion(Float calificacion) {
+    public void setCalificacion(Double calificacion) {
         Calificacion = calificacion;
     }
 

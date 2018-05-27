@@ -27,8 +27,11 @@
         <activity
             android:name=".Pantallas.ClienteActivity"
             android:label="Cliente" />
-        <activity android:name=".Pantallas.AddPeliculaActivity"
-            android:label="Agregar Pelicula"></activity>
+        <activity
+            android:name=".Pantallas.AddPeliculaActivity"
+            android:label="Agregar Pelicula" />
+        <activity android:name=".Pantallas.DescpPeliculaActivity"
+            android:label="Detalle Pelicula"></activity>
     </application>
 
 </manifest>
