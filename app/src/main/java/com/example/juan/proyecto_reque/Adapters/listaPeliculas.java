@@ -60,20 +60,7 @@ public class listaPeliculas extends  BaseAdapter implements Filterable{
         TextView tv_titulo = (TextView) vistaItem.findViewById(R.id.tv_titulo);
         TextView tv_director = (TextView) vistaItem.findViewById(R.id.tv_director);
         TextView tv_calificacion = (TextView) vistaItem.findViewById(R.id.tv_calificacion);
-        if (arrayList.get(position).getFoto().equals("NULL")){
-            tv_imagen.setImageResource(R.drawable.proyector);
-        }
-        else{
-            ImageDownloadTask downloadTask = new ImageDownloadTask();
-            try {
-                Bitmap result = downloadTask.execute(arrayList.get(position).getFoto()).get();
-                tv_imagen.setImageBitmap(result);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-        }
+        tv_imagen.setImageResource(R.drawable.proyector);
 
         tv_titulo.setText(arrayList.get(position).getNombre());
         tv_director.setText(arrayList.get(position).getDirector());
