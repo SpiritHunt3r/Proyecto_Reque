@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,6 +33,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Hashtable;
+import java.util.Map;
 
 public class RecomendadosFragment extends android.support.v4.app.Fragment {
 
@@ -42,9 +46,12 @@ public class RecomendadosFragment extends android.support.v4.app.Fragment {
     private SharedPreferences sharedPreferences;
     private FirebaseAuth auth;
     private FirebaseUser user;
+    private Hashtable<String,Integer> PRecom;
+    private ArrayList<String> pelis;
+    private ArrayList<String> kpelis;
     private Voto[] votos;
     private int pvoto;
-    private Pelicula pr;
+
     private EditText filterText;
 
 
@@ -63,6 +70,12 @@ public class RecomendadosFragment extends android.support.v4.app.Fragment {
         arrayList = new ArrayList<>();
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        PRecom = new Hashtable<String, Integer>();
+
+
+
+        pelis = new ArrayList<>();
+        kpelis = new ArrayList<>();
 
 
 
@@ -141,6 +154,74 @@ public class RecomendadosFragment extends android.support.v4.app.Fragment {
 
 
     public void cargarLista(final Context context){
+        user = auth.getCurrentUser();
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String MComon = "";
+                DataSnapshot KusrWords = dataSnapshot.child("Usuarios").child(user.getUid()).child("Peliculas");
+                for (DataSnapshot Ks:KusrWords.getChildren()){
+                    Pelicula p = Ks.getValue(Pelicula.class);
+                    pelis.add(p.getNombre());
+                    kpelis.add(p.getKeywords());
+                }
+
+
+                for (int i=0;i<kpelis.size();i++) {
+                    for (String s : kpelis.get(i).split(",")) {
+                        if (PRecom.containsKey(s)) {
+                            PRecom.put(s, PRecom.get(s) + 1);
+                        } else {
+                            PRecom.put(s, 1);
+                        }
+                    }
+                }
+
+                if (!PRecom.isEmpty()) {
+                    int maxValueInMap = (Collections.max(PRecom.values()));
+                    for (Map.Entry<String, Integer> entry : PRecom.entrySet()) {
+                        if (entry.getValue() == maxValueInMap) {
+                            MComon = entry.getKey();
+                        }
+                    }
+
+
+                    DataSnapshot AllPelis = dataSnapshot.child("Peliculas");
+                    for (DataSnapshot ds : AllPelis.getChildren()) {
+                        Pelicula t = ds.child("Info").getValue(Pelicula.class);
+                        if (t.getKeywords().contains(MComon) && !pelis.contains(t.getNombre())) {
+                            pvoto = 0;
+                            DataSnapshot myVoto = ds.child("Votos");
+                            votos = new Voto[(int) myVoto.getChildrenCount()];
+                            for (DataSnapshot tm: myVoto.getChildren()){
+                                Voto vt = tm.getValue(Voto.class);
+                                votos[pvoto] = vt;
+                                pvoto++;
+                            }
+                            t.setVotos(votos);
+                            arrayList.add(t);
+
+                        }
+                    }
+                }
+
+
+
+
+
+
+
+
+
+                adapter = new listaPeliculas(arrayList,context);
+                peliculas.setAdapter(adapter);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         //Formula para recomendados
     }

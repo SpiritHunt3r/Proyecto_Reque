@@ -8,6 +8,7 @@ import android.view.MenuItem;
 
 import com.example.juan.proyecto_reque.Fragments.FavoritosFragment;
 import com.example.juan.proyecto_reque.Fragments.PeliculasFragment;
+import com.example.juan.proyecto_reque.Fragments.RecomendadosFragment;
 import com.example.juan.proyecto_reque.R;
 
 public class ClienteActivity extends AppCompatActivity {
@@ -27,7 +28,7 @@ public class ClienteActivity extends AppCompatActivity {
                     transaction.replace(R.id.frame_contenedor, new FavoritosFragment()).commit();
                     return true;
                 case R.id.navigation_recomendadas:
-                    transaction.replace(R.id.frame_contenedor, new PeliculasFragment()).commit();
+                    transaction.replace(R.id.frame_contenedor, new RecomendadosFragment()).commit();
                     return true;
             }
             return false;

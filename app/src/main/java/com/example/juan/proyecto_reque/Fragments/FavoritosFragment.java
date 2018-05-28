@@ -131,6 +131,8 @@ public class FavoritosFragment extends android.support.v4.app.Fragment {
                                 DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Usuarios").child(user.getUid()).child("Peliculas").child(IdN);
                                 myRef.removeValue();
                                 Toast.makeText(rootView.getContext(),"Se ha elimiado "+ IdN +" de Favoritos",Toast.LENGTH_SHORT).show();
+                                Intent n = new Intent(getContext(),ClienteActivity.class);
+                                startActivity(n);
 
                             }
                         })
