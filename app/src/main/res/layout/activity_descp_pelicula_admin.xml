@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Pantallas.Cliente.DescpPeliculaActivity">
+    tools:context=".Pantallas.Admin.DescpPeliculaAdminActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/colorPrimary"
-                android:onClick="back"
+                android:onClick="backadmin"
                 app:srcCompat="@android:drawable/ic_menu_revert" />
 
             <Space
@@ -124,41 +124,13 @@
                 android:layout_weight="0.2" />
 
             <ImageButton
-                android:id="@+id/calificarBtn"
+                android:id="@+id/editarBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/colorPrimary"
-                android:onClick="addCalif"
-                app:srcCompat="@android:drawable/ic_menu_view" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.2" />
-
-            <ImageButton
-                android:id="@+id/favoritosBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/colorPrimary"
-                android:onClick="addMovie"
-                app:srcCompat="@drawable/favoico" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.2" />
-
-            <ImageButton
-                android:id="@+id/commentBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/colorPrimary"
-                android:onClick="addComment"
-                app:srcCompat="@android:drawable/sym_action_chat" />
+                android:onClick="editadmin"
+                app:srcCompat="@android:drawable/ic_menu_edit" />
 
         </LinearLayout>
 

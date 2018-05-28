@@ -1,15 +1,16 @@
-package com.example.juan.proyecto_reque.Pantallas;
+package com.example.juan.proyecto_reque.Pantallas.General;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.juan.proyecto_reque.Clases.Usuario;
+import com.example.juan.proyecto_reque.Pantallas.Admin.AdminActivity;
+import com.example.juan.proyecto_reque.Pantallas.Cliente.ClienteActivity;
 import com.example.juan.proyecto_reque.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         Usuario u = dataSnapshot.getValue(Usuario.class);
                                         if (u.getIs_admin()){
-                                            Intent i = new Intent(getApplicationContext(),AddPeliculaActivity.class);
+                                            Intent i = new Intent(getApplicationContext(),AdminActivity.class);
                                             startActivity(i);
                                         }
                                         else{

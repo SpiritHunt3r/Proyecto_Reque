@@ -6,9 +6,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,8 +24,11 @@ import android.widget.Toast;
 import com.example.juan.proyecto_reque.Adapters.listaPeliculas;
 import com.example.juan.proyecto_reque.Clases.Pelicula;
 import com.example.juan.proyecto_reque.Clases.Voto;
-import com.example.juan.proyecto_reque.Pantallas.Cliente.DescpPeliculaActivity;
+import com.example.juan.proyecto_reque.Pantallas.Admin.AddPeliculaAdminActivity;
+import com.example.juan.proyecto_reque.Pantallas.Admin.AdminActivity;
+import com.example.juan.proyecto_reque.Pantallas.Admin.DescpPeliculaAdminActivity;
 import com.example.juan.proyecto_reque.R;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,10 +36,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-public class PeliculasFragment extends android.support.v4.app.Fragment {
+public class PeliculasAdminFragment extends android.support.v4.app.Fragment {
 
     private View rootView;
     private ListView peliculas;
@@ -57,13 +65,20 @@ public class PeliculasFragment extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_peliculas,container,false);
+        rootView = inflater.inflate(R.layout.fragment_peliculas_admin,container,false);
         peliculas = rootView.findViewById(R.id.LV_peliculas);
         peliculas.setTextFilterEnabled(true);
         arrayList = new ArrayList<>();
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-
+        FloatingActionButton fab1 = (FloatingActionButton) rootView.findViewById(R.id.settings);
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(),AddPeliculaAdminActivity.class);
+                startActivity(i);
+            }
+        });
 
 
         filterText = rootView.findViewById(R.id.filter);
@@ -106,7 +121,7 @@ public class PeliculasFragment extends android.support.v4.app.Fragment {
               sharedPreferences = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());
               SharedPreferences.Editor editor = sharedPreferences.edit();
               editor.putString("Id_Pelicula",temp.getNombre()).commit();
-              Intent n = new Intent(getContext(),DescpPeliculaActivity.class);
+              Intent n = new Intent(getContext(),DescpPeliculaAdminActivity.class);
               startActivity(n);
           }
         });
@@ -116,17 +131,48 @@ public class PeliculasFragment extends android.support.v4.app.Fragment {
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 final String IdN = arrayList.get(position).getNombre();
                 new AlertDialog.Builder(getActivity())
-                        .setIcon(android.R.drawable.ic_menu_add)
-                        .setTitle("Agregando a Favoritos")
-                        .setMessage("Desea agregar " + IdN + " sus favoritos?")
+                        .setIcon(android.R.drawable.ic_menu_delete)
+                        .setTitle("Eliminando pelicula")
+                        .setMessage("Desea eliminar " + IdN + " ?")
                         .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Usuarios").child(user.getUid()).child("Peliculas").child(IdN);
-                                Pelicula t = arrayList.get(position);
-                                t.setVotos(null);
-                                myRef.setValue(t);
-                                Toast.makeText(getContext(),"Se ha agregado "+ IdN +" a Favoritos",Toast.LENGTH_SHORT).show();
+                                DatabaseReference myref = FirebaseDatabase.getInstance().getReference().child("Peliculas").child(IdN);;
+                                if (!arrayList.get(position).getFoto().equals("NULL")){
+                                    StorageReference photo = FirebaseStorage.getInstance().getReferenceFromUrl(arrayList.get(position).getFoto());
+                                    photo.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d("Portada","Se elimino portada correctamente");
+                                        }
+                                    });
+                                }
+                                myref.removeValue();
+                                DatabaseReference checkuser =FirebaseDatabase.getInstance().getReference().child("Usuarios");
+                                checkuser.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot ds:dataSnapshot.getChildren()){
+                                            DataSnapshot userxpeli = ds.child("Peliculas");
+                                            for (DataSnapshot dss:userxpeli.getChildren()){
+                                                Pelicula p = dss.getValue(Pelicula.class);
+                                                if (p.getNombre().equals(IdN)){
+                                                    DatabaseReference tmp = dss.getRef();
+                                                    Log.d("REFERENCE",tmp.toString());
+                                                    tmp.removeValue();
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+                                Toast.makeText(getContext(),"Se ha eliminado "+ IdN +" de las Peliculas",Toast.LENGTH_SHORT).show();
+                                Intent j = new Intent(getContext(),AdminActivity.class);
+                                startActivity(j);
             }
         })
                 .setNegativeButton("No", null)

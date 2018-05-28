@@ -9,7 +9,6 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,7 +21,7 @@ import android.widget.Toast;
 import com.example.juan.proyecto_reque.Adapters.listaPeliculas;
 import com.example.juan.proyecto_reque.Clases.Pelicula;
 import com.example.juan.proyecto_reque.Clases.Voto;
-import com.example.juan.proyecto_reque.Pantallas.DescpPeliculaActivity;
+import com.example.juan.proyecto_reque.Pantallas.Cliente.DescpPeliculaActivity;
 import com.example.juan.proyecto_reque.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -153,7 +152,7 @@ public class RecomendadosFragment extends android.support.v4.app.Fragment {
     }
 
 
-    public void cargarLista(final Context context){
+    private void cargarLista(final Context context){
         user = auth.getCurrentUser();
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
         myRef.addValueEventListener(new ValueEventListener() {
@@ -205,14 +204,25 @@ public class RecomendadosFragment extends android.support.v4.app.Fragment {
                         }
                     }
                 }
+                else{
+                    DataSnapshot AllPelis = dataSnapshot.child("Peliculas");
+                    for (DataSnapshot ds : AllPelis.getChildren()) {
+                        Pelicula t = ds.child("Info").getValue(Pelicula.class);
+                            pvoto = 0;
+                            DataSnapshot myVoto = ds.child("Votos");
+                            votos = new Voto[(int) myVoto.getChildrenCount()];
+                            for (DataSnapshot tm: myVoto.getChildren()){
+                                Voto vt = tm.getValue(Voto.class);
+                                votos[pvoto] = vt;
+                                pvoto++;
+                            }
+                            t.setVotos(votos);
+                            if (t.genCalification()>3.5f){
+                                arrayList.add(t);
+                            }
+                        }
 
-
-
-
-
-
-
-
+                }
 
                 adapter = new listaPeliculas(arrayList,context);
                 peliculas.setAdapter(adapter);

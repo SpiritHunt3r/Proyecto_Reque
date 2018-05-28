@@ -1,18 +1,14 @@
 package com.example.juan.proyecto_reque.Fragments;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.text.style.UpdateLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,8 +21,8 @@ import android.widget.Toast;
 import com.example.juan.proyecto_reque.Adapters.listaPeliculas;
 import com.example.juan.proyecto_reque.Clases.Pelicula;
 import com.example.juan.proyecto_reque.Clases.Voto;
-import com.example.juan.proyecto_reque.Pantallas.ClienteActivity;
-import com.example.juan.proyecto_reque.Pantallas.DescpPeliculaActivity;
+import com.example.juan.proyecto_reque.Pantallas.Cliente.ClienteActivity;
+import com.example.juan.proyecto_reque.Pantallas.Cliente.DescpPeliculaActivity;
 import com.example.juan.proyecto_reque.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -154,7 +150,7 @@ public class FavoritosFragment extends android.support.v4.app.Fragment {
 
 
 
-    public void cargarLista(final Context context){
+    private void cargarLista(final Context context){
         user = auth.getCurrentUser();
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
         myRef.addValueEventListener(new ValueEventListener() {

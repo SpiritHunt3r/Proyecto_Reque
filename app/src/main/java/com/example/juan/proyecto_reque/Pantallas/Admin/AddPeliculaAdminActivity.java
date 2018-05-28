@@ -1,4 +1,4 @@
-package com.example.juan.proyecto_reque.Pantallas;
+package com.example.juan.proyecto_reque.Pantallas.Admin;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -8,10 +8,8 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -33,7 +31,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.IOException;
 import java.util.UUID;
 
-public class AddPeliculaActivity extends AppCompatActivity {
+public class AddPeliculaAdminActivity extends AppCompatActivity {
 
 
     private ImageView imageView;
@@ -84,6 +82,8 @@ public class AddPeliculaActivity extends AppCompatActivity {
     public void updatePelicula(View v){
         RegPelicula();
     }
+
+    public void backAdmin(View v){ Intent i = new Intent(getApplicationContext(),AdminActivity.class); startActivity(i);}
 
 
     private void chooseImage() {
@@ -136,7 +136,7 @@ public class AddPeliculaActivity extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Void> task) {
                                             Toast.makeText(getApplicationContext(), "Pelicula Agregada Correctamente", Toast.LENGTH_SHORT).show();
                                             finish();
-                                            Intent i = new Intent(getApplicationContext(),AddPeliculaActivity.class);
+                                            Intent i = new Intent(getApplicationContext(),AddPeliculaAdminActivity.class);
                                             startActivity(i);
                                         }
                                     });
@@ -167,9 +167,8 @@ public class AddPeliculaActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(getApplicationContext(), "Pelicula Agregada Correctamente", Toast.LENGTH_SHORT).show();
                             finish();
-                            //Moverse cuando se agrege correctamente
-                            //Intent i = new Intent(getApplicationContext(),ProfileActivity.class);
-                            //startActivity(i);
+                            Intent k = new Intent(getApplicationContext(),AdminActivity.class);
+                            startActivity(k);
                         }
                     });
         }

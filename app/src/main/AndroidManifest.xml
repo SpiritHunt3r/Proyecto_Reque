@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Pantallas.MainActivity"
+            android:name=".Pantallas.General.MainActivity"
             android:label="Cines 35mm">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,16 +22,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Pantallas.RegisterActivity"
+            android:name=".Pantallas.General.RegisterActivity"
             android:label="Registration" />
         <activity
-            android:name=".Pantallas.ClienteActivity"
+            android:name=".Pantallas.Cliente.ClienteActivity"
             android:label="Cliente" />
         <activity
-            android:name=".Pantallas.AddPeliculaActivity"
+            android:name=".Pantallas.Admin.AddPeliculaAdminActivity"
             android:label="Agregar Pelicula" />
-        <activity android:name=".Pantallas.DescpPeliculaActivity"
-            android:label="Detalle Pelicula"></activity>
+        <activity
+            android:name=".Pantallas.Cliente.DescpPeliculaActivity"
+            android:label="Detalle Pelicula" />
+        <activity
+            android:name=".Pantallas.Admin.DescpPeliculaAdminActivity"
+            android:label="Informacion Pelicula" />
+        <activity
+            android:name=".Pantallas.Admin.AdminActivity"
+            android:label="Administrador" />
+        <activity android:name=".Pantallas.Admin.EditPeliculaAdminActivity"
+            android:label="Editar Pelicula"></activity>
     </application>
 
 </manifest>
