@@ -2,14 +2,29 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_peliculas"
-        android:icon="@drawable/movieico"
+        android:id="@+id/navigation_peliculas_admin"
+        android:icon="@drawable/setmovie"
         android:title="Peliculas" />
 
     <item
         android:id="@+id/navigation_usuarios"
         android:icon="@drawable/userico"
         android:title="Usuarios" />
+
+    <item
+        android:id="@+id/navigation_peliculas"
+        android:icon="@drawable/movieico"
+        android:title="Peliculas" />
+
+    <item
+        android:id="@+id/navigation_favoritos"
+        android:icon="@drawable/favoico"
+        android:title="Favoritas" />
+
+    <item
+        android:id="@+id/navigation_recomendadas"
+        android:icon="@drawable/recoico"
+        android:title="Recomendadas" />
 
 
 </menu>

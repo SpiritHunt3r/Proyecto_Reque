@@ -69,6 +69,7 @@ public class ComentariosAdminFragment extends android.support.v4.app.Fragment {
                                                 Toast.makeText(rootView.getContext(),"Se ha elimiado el comentario por "+IdN,Toast.LENGTH_SHORT).show();
                                                 Intent n = new Intent(rootView.getContext(),DescpPeliculaAdminActivity.class);
                                                 startActivity(n);
+                                                break;
                                             }
                                         }
                                     }

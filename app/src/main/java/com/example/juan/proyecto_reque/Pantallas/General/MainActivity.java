@@ -1,7 +1,9 @@
 package com.example.juan.proyecto_reque.Pantallas.General;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -25,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
 
     private EditText e1, e2;
-
+    private SharedPreferences sharedPreferences;
     private FirebaseAuth auth;
     private DatabaseReference ref;
 
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         e1 = findViewById(R.id.emailText);
         e2 = findViewById(R.id.passwordText);
         auth = FirebaseAuth.getInstance();
+
         ref = FirebaseDatabase.getInstance().getReference();
     }
 
@@ -68,10 +71,18 @@ public class MainActivity extends AppCompatActivity {
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         Usuario u = dataSnapshot.getValue(Usuario.class);
                                         if (u.getIs_admin()){
+                                            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.putString("IS_ADMIN",String.valueOf(u.getIs_admin())).commit();
+                                            finish();
                                             Intent i = new Intent(getApplicationContext(),AdminActivity.class);
                                             startActivity(i);
                                         }
                                         else{
+                                            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.putString("IS_ADMIN",String.valueOf(u.getIs_admin())).commit();
+                                            finish();
                                             Intent i = new Intent(getApplicationContext(),ClienteActivity.class);
                                             startActivity(i);
                                         }

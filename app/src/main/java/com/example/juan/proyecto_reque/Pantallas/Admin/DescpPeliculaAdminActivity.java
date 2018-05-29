@@ -23,11 +23,13 @@ import android.widget.Toast;
 import com.example.juan.proyecto_reque.Adapters.listaComentarios;
 import com.example.juan.proyecto_reque.Clases.Comentario;
 import com.example.juan.proyecto_reque.Clases.Pelicula;
+import com.example.juan.proyecto_reque.Clases.Usuario;
 import com.example.juan.proyecto_reque.Clases.Voto;
 import com.example.juan.proyecto_reque.Dowloaders.ImageDownloadTask;
 import com.example.juan.proyecto_reque.Fragments.ComentariosAdminFragment;
 import com.example.juan.proyecto_reque.Fragments.ComentariosFragment;
 import com.example.juan.proyecto_reque.Pantallas.Cliente.ClienteActivity;
+import com.example.juan.proyecto_reque.Pantallas.Cliente.DescpPeliculaActivity;
 import com.example.juan.proyecto_reque.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -90,7 +92,7 @@ public class DescpPeliculaAdminActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         Idn = sharedPreferences.getString("Id_Pelicula","");
         ref = FirebaseDatabase.getInstance().getReference().child("Peliculas").child(Idn);
-        ref.addValueEventListener(new ValueEventListener() {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Voto[] votos;
@@ -144,18 +146,132 @@ public class DescpPeliculaAdminActivity extends AppCompatActivity {
 
 
     public void backadmin (View v){
+        finish();
         Intent i = new Intent(getApplicationContext(),AdminActivity.class);
         startActivity(i);
     }
 
     public void editadmin (View v){
+        finish();
         Intent i = new Intent(getApplicationContext(),EditPeliculaAdminActivity.class);
         startActivity(i);
     }
 
 
 
+    public void addCalif(View v){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Usuarios").child(user.getUid()).child("Personal Info");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Usuario u = dataSnapshot.getValue(Usuario.class);
+                if (!u.getIs_active()){
+                    Toast.makeText(getApplicationContext(),"No puede realizar votaciones debido a que se encuentra bloqueado",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    showVotaciones();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+
+    }
+
+    private void showVotaciones(){
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        b.setTitle("Seleccione calificacion para "+Idn);
+        String[] types = {"0.0","0.5","1.0","1.5","2.0","2.5","3.0","3.5","4.0","4.5","5.0"};
+        b.setItems(types, new DialogInterface.OnClickListener() {
+            DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Peliculas").child(u.getNombre()).child("Votos").child(user.getUid());
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+                Voto v = new Voto(user.getEmail(),which * 0.5);
+                myRef.setValue(v).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(getApplicationContext(), "Votacion realizada para "+Idn, Toast.LENGTH_SHORT).show();
+                        finish();
+                        Intent i = new Intent(getApplicationContext(),DescpPeliculaAdminActivity.class);
+                        startActivity(i);
+                    }
+                });
+            }
+
+        });
+        b.show();
+    }
+
+
+    public void addMovie(View v){
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Usuarios").child(user.getUid()).child("Peliculas").child(Idn);
+        u.setVotos(null);
+        myRef.setValue(u);
+        Toast.makeText(getApplicationContext(),"Se ha agregado "+ Idn +" a Favoritos",Toast.LENGTH_SHORT).show();
+    }
+
+
+    public void addComment(View v){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Usuarios").child(user.getUid()).child("Personal Info");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Usuario u = dataSnapshot.getValue(Usuario.class);
+                if (!u.getIs_active()){
+                    Toast.makeText(getApplicationContext(),"No puede realizar comentarios debido a que se encuentra bloqueado",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    showComentarios();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void showComentarios(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Comentario");
+
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                DatabaseReference myReC = FirebaseDatabase.getInstance().getReference().child("Peliculas").child(u.getNombre()).child("Comentarios").child(user.getUid());
+                Comentario c = new Comentario(user.getEmail(),input.getText().toString());
+                myReC.setValue(c).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(getApplicationContext(), "Cometario agregado para "+Idn, Toast.LENGTH_SHORT).show();
+                        finish();
+                        Intent i = new Intent(getApplicationContext(),DescpPeliculaAdminActivity.class);
+                        startActivity(i);
+                    }
+                });
+
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
 
 
 }

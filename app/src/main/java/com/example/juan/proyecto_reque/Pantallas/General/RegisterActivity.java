@@ -80,6 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void backMain(View v){
+        finish();
         Intent i = new Intent(this,MainActivity.class);
         startActivity(i);
     }

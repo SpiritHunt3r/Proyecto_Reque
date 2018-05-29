@@ -124,6 +124,49 @@
                 android:layout_weight="0.2" />
 
             <ImageButton
+                android:id="@+id/calificarBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:onClick="addCalif"
+                app:srcCompat="@android:drawable/ic_menu_view" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2" />
+
+            <ImageButton
+                android:id="@+id/favoritosBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:onClick="addMovie"
+                app:srcCompat="@drawable/favoico" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2" />
+
+            <ImageButton
+                android:id="@+id/commentBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:onClick="addComment"
+                app:srcCompat="@android:drawable/sym_action_chat" />
+
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2" />
+
+            <ImageButton
                 android:id="@+id/editarBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

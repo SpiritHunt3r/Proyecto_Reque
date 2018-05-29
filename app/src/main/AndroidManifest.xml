@@ -39,8 +39,11 @@
         <activity
             android:name=".Pantallas.Admin.AdminActivity"
             android:label="Administrador" />
-        <activity android:name=".Pantallas.Admin.EditPeliculaAdminActivity"
-            android:label="Editar Pelicula"></activity>
+        <activity
+            android:name=".Pantallas.Admin.EditPeliculaAdminActivity"
+            android:label="Editar Pelicula" />
+        <activity android:name=".Pantallas.Admin.DescpUsuarioActivity"
+            android:label="Editar Usuario" ></activity>
     </application>
 
 </manifest>

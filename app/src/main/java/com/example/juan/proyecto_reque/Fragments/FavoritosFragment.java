@@ -22,6 +22,8 @@ import android.widget.Toast;
 import com.example.juan.proyecto_reque.Adapters.listaPeliculas;
 import com.example.juan.proyecto_reque.Clases.Pelicula;
 import com.example.juan.proyecto_reque.Clases.Voto;
+import com.example.juan.proyecto_reque.Pantallas.Admin.AdminActivity;
+import com.example.juan.proyecto_reque.Pantallas.Admin.DescpPeliculaAdminActivity;
 import com.example.juan.proyecto_reque.Pantallas.Cliente.ClienteActivity;
 import com.example.juan.proyecto_reque.Pantallas.Cliente.DescpPeliculaActivity;
 import com.example.juan.proyecto_reque.Pantallas.General.MainActivity;
@@ -119,8 +121,15 @@ public class FavoritosFragment extends android.support.v4.app.Fragment {
                 sharedPreferences = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("Id_Pelicula",temp.getNombre()).commit();
-                Intent n = new Intent(getContext(),DescpPeliculaActivity.class);
-                startActivity(n);
+                String isAdm = sharedPreferences.getString("IS_ADMIN","");
+                if (Boolean.valueOf(isAdm)){
+                    Intent n = new Intent(getContext(),DescpPeliculaAdminActivity.class);
+                    startActivity(n);
+                }
+                else{
+                    Intent n = new Intent(getContext(),DescpPeliculaActivity.class);
+                    startActivity(n);
+                }
             }
         });
 
@@ -139,8 +148,16 @@ public class FavoritosFragment extends android.support.v4.app.Fragment {
                                 DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Usuarios").child(user.getUid()).child("Peliculas").child(IdN);
                                 myRef.removeValue();
                                 Toast.makeText(rootView.getContext(),"Se ha elimiado "+ IdN +" de Favoritos",Toast.LENGTH_SHORT).show();
-                                Intent n = new Intent(getContext(),ClienteActivity.class);
-                                startActivity(n);
+                                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                                String isAdm = sharedPreferences.getString("IS_ADMIN","");
+                                if (Boolean.valueOf(isAdm)){
+                                    Intent n = new Intent(getContext(),AdminActivity.class);
+                                    startActivity(n);
+                                }
+                                else{
+                                    Intent n = new Intent(getContext(),ClienteActivity.class);
+                                    startActivity(n);
+                                }
 
                             }
                         })

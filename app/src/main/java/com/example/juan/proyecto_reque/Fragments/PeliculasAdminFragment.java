@@ -28,6 +28,8 @@ import com.example.juan.proyecto_reque.Clases.Voto;
 import com.example.juan.proyecto_reque.Pantallas.Admin.AddPeliculaAdminActivity;
 import com.example.juan.proyecto_reque.Pantallas.Admin.AdminActivity;
 import com.example.juan.proyecto_reque.Pantallas.Admin.DescpPeliculaAdminActivity;
+import com.example.juan.proyecto_reque.Pantallas.Cliente.ClienteActivity;
+import com.example.juan.proyecto_reque.Pantallas.Cliente.DescpPeliculaActivity;
 import com.example.juan.proyecto_reque.Pantallas.General.MainActivity;
 import com.example.juan.proyecto_reque.R;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -146,6 +148,7 @@ public class PeliculasAdminFragment extends android.support.v4.app.Fragment {
               editor.putString("Id_Pelicula",temp.getNombre()).commit();
               Intent n = new Intent(getContext(),DescpPeliculaAdminActivity.class);
               startActivity(n);
+
           }
         });
 

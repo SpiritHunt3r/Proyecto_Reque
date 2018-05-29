@@ -36,7 +36,6 @@ public class ComentariosFragment extends android.support.v4.app.Fragment {
 
     private View rootView;
     private ListView comentarios;
-    private DatabaseReference ref;
     private ArrayList<Comentario> arrayListCom;
     private listaComentarios adapter;
     private String peli;

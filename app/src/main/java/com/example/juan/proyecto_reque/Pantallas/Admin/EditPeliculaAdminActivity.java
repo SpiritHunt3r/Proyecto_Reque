@@ -186,6 +186,7 @@ public class EditPeliculaAdminActivity extends AppCompatActivity {
 
 
     public void backadmin (View v){
+        finish();
         Intent i = new Intent(getApplicationContext(),DescpPeliculaAdminActivity.class);
         startActivity(i);
     }

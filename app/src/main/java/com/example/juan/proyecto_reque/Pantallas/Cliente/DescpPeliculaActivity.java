@@ -27,6 +27,7 @@ import com.example.juan.proyecto_reque.Clases.Voto;
 import com.example.juan.proyecto_reque.Dowloaders.ImageDownloadTask;
 import com.example.juan.proyecto_reque.Fragments.ComentariosFragment;
 import com.example.juan.proyecto_reque.Pantallas.Admin.AdminActivity;
+import com.example.juan.proyecto_reque.Pantallas.Admin.DescpPeliculaAdminActivity;
 import com.example.juan.proyecto_reque.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -86,7 +87,7 @@ public class DescpPeliculaActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         Idn = sharedPreferences.getString("Id_Pelicula","");
         ref = FirebaseDatabase.getInstance().getReference().child("Peliculas").child(Idn);
-        ref.addValueEventListener(new ValueEventListener() {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Voto[] votos;
@@ -140,8 +141,20 @@ public class DescpPeliculaActivity extends AppCompatActivity {
 
 
     public void back(View v){
-        Intent i = new Intent(getApplicationContext(),ClienteActivity.class);
-        startActivity(i);
+        finish();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String isAdm = sharedPreferences.getString("IS_ADMIN","");
+        if (Boolean.valueOf(isAdm)){
+            finish();
+            Intent i = new Intent(getApplicationContext(),AdminActivity.class);
+            startActivity(i);
+        }
+        else{
+            finish();
+            Intent i = new Intent(getApplicationContext(),ClienteActivity.class);
+            startActivity(i);
+        }
+
     }
 
 
@@ -182,8 +195,18 @@ public class DescpPeliculaActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         Toast.makeText(getApplicationContext(), "Votacion realizada para "+Idn, Toast.LENGTH_SHORT).show();
                         finish();
-                        Intent i = new Intent(getApplicationContext(),DescpPeliculaActivity.class);
-                        startActivity(i);
+                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        String isAdm = sharedPreferences.getString("IS_ADMIN","");
+                        if (Boolean.valueOf(isAdm)){
+                            finish();
+                            Intent i = new Intent(getApplicationContext(),DescpPeliculaAdminActivity.class);
+                            startActivity(i);
+                        }
+                        else{
+                            finish();
+                            Intent i = new Intent(getApplicationContext(),DescpPeliculaActivity.class);
+                            startActivity(i);
+                        }
                     }
                 });
             }
@@ -246,8 +269,18 @@ public class DescpPeliculaActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         Toast.makeText(getApplicationContext(), "Cometario agregado para "+Idn, Toast.LENGTH_SHORT).show();
                         finish();
-                        Intent i = new Intent(getApplicationContext(),DescpPeliculaActivity.class);
-                        startActivity(i);
+                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        String isAdm = sharedPreferences.getString("IS_ADMIN","");
+                        if (Boolean.valueOf(isAdm)){
+                            finish();
+                            Intent i = new Intent(getApplicationContext(),DescpPeliculaAdminActivity.class);
+                            startActivity(i);
+                        }
+                        else{
+                            finish();
+                            Intent i = new Intent(getApplicationContext(),DescpPeliculaActivity.class);
+                            startActivity(i);
+                        }
                     }
                 });
 
