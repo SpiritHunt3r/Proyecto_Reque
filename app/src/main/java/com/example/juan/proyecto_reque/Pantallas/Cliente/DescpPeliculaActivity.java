@@ -53,8 +53,10 @@ public class DescpPeliculaActivity extends AppCompatActivity {
     private DatabaseReference ref;
     private ImageView portada;
     private TextView des,nom,dir,anno,gen,acts,cal;
-    Pelicula u;
-    String Idn;
+    private Pelicula u;
+    private Usuario k;
+    private String Idn;
+    private EditText input;
 
 
     @Override
@@ -163,8 +165,8 @@ public class DescpPeliculaActivity extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Usuario u = dataSnapshot.getValue(Usuario.class);
-                if (!u.getIs_active()){
+                k = dataSnapshot.getValue(Usuario.class);
+                if (!k.getIs_active()){
                     Toast.makeText(getApplicationContext(),"No puede realizar votaciones debido a que se encuentra bloqueado",Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -229,8 +231,8 @@ public class DescpPeliculaActivity extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Usuario u = dataSnapshot.getValue(Usuario.class);
-                if (!u.getIs_active()){
+                k = dataSnapshot.getValue(Usuario.class);
+                if (!k.getIs_active()){
                     Toast.makeText(getApplicationContext(),"No puede realizar comentarios debido a que se encuentra bloqueado",Toast.LENGTH_SHORT).show();
                 }
                 else {
@@ -254,7 +256,7 @@ public class DescpPeliculaActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Comentario");
 
-        final EditText input = new EditText(this);
+        input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
 
@@ -262,25 +264,15 @@ public class DescpPeliculaActivity extends AppCompatActivity {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                DatabaseReference myReC = FirebaseDatabase.getInstance().getReference().child("Peliculas").child(u.getNombre()).child("Comentarios").child(user.getUid());
-                Comentario c = new Comentario(user.getEmail(),input.getText().toString());
-                myReC.setValue(c).addOnCompleteListener(new OnCompleteListener<Void>() {
+                DatabaseReference myReC2 = FirebaseDatabase.getInstance().getReference().child("Peliculas").child(u.getNombre()).child("Comentarios").child(user.getUid());
+                Comentario c = new Comentario(user.getEmail(),k.getNombre(),input.getText().toString());
+                myReC2.setValue(c).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         Toast.makeText(getApplicationContext(), "Cometario agregado para "+Idn, Toast.LENGTH_SHORT).show();
                         finish();
-                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                        String isAdm = sharedPreferences.getString("IS_ADMIN","");
-                        if (Boolean.valueOf(isAdm)){
-                            finish();
-                            Intent i = new Intent(getApplicationContext(),DescpPeliculaAdminActivity.class);
-                            startActivity(i);
-                        }
-                        else{
-                            finish();
-                            Intent i = new Intent(getApplicationContext(),DescpPeliculaActivity.class);
-                            startActivity(i);
-                        }
+                        Intent i = new Intent(getApplicationContext(),DescpPeliculaActivity.class);
+                        startActivity(i);
                     }
                 });
 
@@ -295,6 +287,5 @@ public class DescpPeliculaActivity extends AppCompatActivity {
 
         builder.show();
     }
-
 
 }

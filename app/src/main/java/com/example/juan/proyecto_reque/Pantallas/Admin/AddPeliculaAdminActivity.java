@@ -83,7 +83,7 @@ public class AddPeliculaAdminActivity extends AppCompatActivity {
         RegPelicula();
     }
 
-    public void backAdmin(View v){ finish(); Intent i = new Intent(getApplicationContext(),AdminActivity.class); startActivity(i);}
+    public void backAdminAddPelicula(View v){ finish(); Intent i = new Intent(getApplicationContext(),AdminActivity.class); startActivity(i);}
 
 
     private void chooseImage() {

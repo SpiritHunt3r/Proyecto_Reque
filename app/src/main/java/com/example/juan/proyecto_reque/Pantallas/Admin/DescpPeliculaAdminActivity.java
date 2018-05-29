@@ -54,10 +54,11 @@ public class DescpPeliculaAdminActivity extends AppCompatActivity {
     private FirebaseUser user;
     private DatabaseReference ref;
     private ImageView portada;
+    private EditText input;
     private TextView des,nom,dir,anno,gen,acts,cal;
-    Pelicula u;
-    String Idn;
-    private listaComentarios adapter;
+    private Pelicula u;
+    private Usuario k;
+    private String Idn;
 
 
     @Override
@@ -88,6 +89,9 @@ public class DescpPeliculaAdminActivity extends AppCompatActivity {
         des.setMovementMethod(new ScrollingMovementMethod());
 
         acts.setMovementMethod(new ScrollingMovementMethod());
+
+
+
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         Idn = sharedPreferences.getString("Id_Pelicula","");
@@ -145,7 +149,7 @@ public class DescpPeliculaAdminActivity extends AppCompatActivity {
     }
 
 
-    public void backadmin (View v){
+    public void backadmindespadmin (View v){
         finish();
         Intent i = new Intent(getApplicationContext(),AdminActivity.class);
         startActivity(i);
@@ -164,8 +168,8 @@ public class DescpPeliculaAdminActivity extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Usuario u = dataSnapshot.getValue(Usuario.class);
-                if (!u.getIs_active()){
+                k = dataSnapshot.getValue(Usuario.class);
+                if (!k.getIs_active()){
                     Toast.makeText(getApplicationContext(),"No puede realizar votaciones debido a que se encuentra bloqueado",Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -220,8 +224,8 @@ public class DescpPeliculaAdminActivity extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Usuario u = dataSnapshot.getValue(Usuario.class);
-                if (!u.getIs_active()){
+                k = dataSnapshot.getValue(Usuario.class);
+                if (!k.getIs_active()){
                     Toast.makeText(getApplicationContext(),"No puede realizar comentarios debido a que se encuentra bloqueado",Toast.LENGTH_SHORT).show();
                 }
                 else {
@@ -241,7 +245,7 @@ public class DescpPeliculaAdminActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Comentario");
 
-        final EditText input = new EditText(this);
+        input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
 
@@ -249,9 +253,9 @@ public class DescpPeliculaAdminActivity extends AppCompatActivity {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                DatabaseReference myReC = FirebaseDatabase.getInstance().getReference().child("Peliculas").child(u.getNombre()).child("Comentarios").child(user.getUid());
-                Comentario c = new Comentario(user.getEmail(),input.getText().toString());
-                myReC.setValue(c).addOnCompleteListener(new OnCompleteListener<Void>() {
+                DatabaseReference myReC2 = FirebaseDatabase.getInstance().getReference().child("Peliculas").child(u.getNombre()).child("Comentarios").child(user.getUid());
+                Comentario c = new Comentario(user.getEmail(),k.getNombre(),input.getText().toString());
+                myReC2.setValue(c).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         Toast.makeText(getApplicationContext(), "Cometario agregado para "+Idn, Toast.LENGTH_SHORT).show();
