@@ -13,6 +13,7 @@ import android.text.InputType;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -24,6 +25,8 @@ import com.example.juan.proyecto_reque.Clases.Comentario;
 import com.example.juan.proyecto_reque.Clases.Pelicula;
 import com.example.juan.proyecto_reque.Clases.Voto;
 import com.example.juan.proyecto_reque.Dowloaders.ImageDownloadTask;
+import com.example.juan.proyecto_reque.Fragments.ComentariosAdminFragment;
+import com.example.juan.proyecto_reque.Fragments.ComentariosFragment;
 import com.example.juan.proyecto_reque.Pantallas.Cliente.ClienteActivity;
 import com.example.juan.proyecto_reque.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -53,8 +56,7 @@ public class DescpPeliculaAdminActivity extends AppCompatActivity {
     Pelicula u;
     String Idn;
     private listaComentarios adapter;
-    private ArrayList<Comentario> arrayListCom;
-    private ListView comments;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +72,11 @@ public class DescpPeliculaAdminActivity extends AppCompatActivity {
         acts = findViewById(R.id.actoresText);
         cal = findViewById(R.id.calificacionText);
 
-        comments = findViewById(R.id.comentariosList);
-        arrayListCom = new ArrayList<>();
+        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.comentarios_frame, new ComentariosAdminFragment()).commit();
+
+
 
 
         auth = FirebaseAuth.getInstance();
@@ -124,14 +129,7 @@ public class DescpPeliculaAdminActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-                DataSnapshot myCommt = dataSnapshot.child("Comentarios");
-                for (DataSnapshot cm: myCommt.getChildren()){
-                    Comentario tcm = cm.getValue(Comentario.class);
 
-                    arrayListCom.add(tcm);
-                }
-                adapter = new listaComentarios(arrayListCom,getApplicationContext());
-                comments.setAdapter(adapter);
 
             }
 
@@ -154,6 +152,7 @@ public class DescpPeliculaAdminActivity extends AppCompatActivity {
         Intent i = new Intent(getApplicationContext(),EditPeliculaAdminActivity.class);
         startActivity(i);
     }
+
 
 
 

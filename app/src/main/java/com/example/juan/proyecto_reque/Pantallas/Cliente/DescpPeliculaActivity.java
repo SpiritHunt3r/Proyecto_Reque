@@ -25,6 +25,7 @@ import com.example.juan.proyecto_reque.Clases.Pelicula;
 import com.example.juan.proyecto_reque.Clases.Usuario;
 import com.example.juan.proyecto_reque.Clases.Voto;
 import com.example.juan.proyecto_reque.Dowloaders.ImageDownloadTask;
+import com.example.juan.proyecto_reque.Fragments.ComentariosFragment;
 import com.example.juan.proyecto_reque.Pantallas.Admin.AdminActivity;
 import com.example.juan.proyecto_reque.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -53,9 +54,7 @@ public class DescpPeliculaActivity extends AppCompatActivity {
     private TextView des,nom,dir,anno,gen,acts,cal;
     Pelicula u;
     String Idn;
-    private listaComentarios adapter;
-    private ArrayList<Comentario> arrayListCom;
-    private ListView comments;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +70,9 @@ public class DescpPeliculaActivity extends AppCompatActivity {
         acts = findViewById(R.id.actoresText);
         cal = findViewById(R.id.calificacionText);
 
-        comments = findViewById(R.id.comentariosList);
-        arrayListCom = new ArrayList<>();
+        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.comentarios_frame, new ComentariosFragment()).commit();
 
 
         auth = FirebaseAuth.getInstance();
@@ -125,14 +125,6 @@ public class DescpPeliculaActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-                DataSnapshot myCommt = dataSnapshot.child("Comentarios");
-                for (DataSnapshot cm: myCommt.getChildren()){
-                    Comentario tcm = cm.getValue(Comentario.class);
-
-                    arrayListCom.add(tcm);
-                }
-                adapter = new listaComentarios(arrayListCom,getApplicationContext());
-                comments.setAdapter(adapter);
 
             }
 
@@ -159,7 +151,6 @@ public class DescpPeliculaActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Usuario u = dataSnapshot.getValue(Usuario.class);
-                Log.d("TEST",u.getNombre());
                 if (!u.getIs_active()){
                     Toast.makeText(getApplicationContext(),"No puede realizar votaciones debido a que se encuentra bloqueado",Toast.LENGTH_SHORT).show();
                 }

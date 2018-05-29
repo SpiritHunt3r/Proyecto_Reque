@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import com.example.juan.proyecto_reque.Adapters.listaPeliculas;
 import com.example.juan.proyecto_reque.Clases.Pelicula;
 import com.example.juan.proyecto_reque.Clases.Voto;
 import com.example.juan.proyecto_reque.Pantallas.Cliente.DescpPeliculaActivity;
+import com.example.juan.proyecto_reque.Pantallas.General.MainActivity;
 import com.example.juan.proyecto_reque.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -46,6 +48,8 @@ public class PeliculasFragment extends android.support.v4.app.Fragment {
     private int pvoto;
     private Pelicula pr;
     private EditText filterText;
+    private ImageButton exit;
+
 
 
     @Override
@@ -63,6 +67,18 @@ public class PeliculasFragment extends android.support.v4.app.Fragment {
         arrayList = new ArrayList<>();
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+
+
+        exit = rootView.findViewById(R.id.imageButton);
+
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                auth.signOut();
+                Intent i = new Intent(getContext(), MainActivity.class);
+                startActivity(i);
+            }
+        });
 
 
 

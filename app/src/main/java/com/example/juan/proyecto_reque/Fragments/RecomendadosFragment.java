@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import com.example.juan.proyecto_reque.Adapters.listaPeliculas;
 import com.example.juan.proyecto_reque.Clases.Pelicula;
 import com.example.juan.proyecto_reque.Clases.Voto;
 import com.example.juan.proyecto_reque.Pantallas.Cliente.DescpPeliculaActivity;
+import com.example.juan.proyecto_reque.Pantallas.General.MainActivity;
 import com.example.juan.proyecto_reque.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -50,6 +52,7 @@ public class RecomendadosFragment extends android.support.v4.app.Fragment {
     private ArrayList<String> kpelis;
     private Voto[] votos;
     private int pvoto;
+    private ImageButton exit;
 
     private EditText filterText;
 
@@ -72,6 +75,17 @@ public class RecomendadosFragment extends android.support.v4.app.Fragment {
         PRecom = new Hashtable<String, Integer>();
 
 
+
+        exit = rootView.findViewById(R.id.imageButton);
+
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                auth.signOut();
+                Intent i = new Intent(getContext(), MainActivity.class);
+                startActivity(i);
+            }
+        });
 
         pelis = new ArrayList<>();
         kpelis = new ArrayList<>();

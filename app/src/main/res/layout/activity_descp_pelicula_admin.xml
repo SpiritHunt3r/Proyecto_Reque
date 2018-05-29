@@ -145,14 +145,13 @@
             android:text="COMENTARIOS"
             android:textStyle="bold" />
 
-        <ListView
-            android:id="@+id/comentariosList"
+        <FrameLayout
+            android:id="@+id/comentarios_frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="15dp">
+            android:layout_weight="1">
 
-
-        </ListView>
+        </FrameLayout>
 
 
     </LinearLayout>

@@ -33,7 +33,7 @@
                 <Button
                     android:id="@+id/btnChoose"
                     style="@style/Widget.AppCompat.Button.Colored"
-                    android:layout_width="268dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_weight="1"
@@ -42,7 +42,7 @@
 
                 <EditText
                     android:id="@+id/descriptionText"
-                    android:layout_width="264dp"
+                    android:layout_width="match_parent"
                     android:layout_height="101dp"
                     android:layout_below="@+id/btnChoose"
                     android:layout_weight="1"
@@ -100,23 +100,38 @@
             android:hint="Actores [Act1,Act2,...,AtcN]"
             android:inputType="textPersonName" />
 
-        <Button
-            android:id="@+id/agregarBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:background="@color/colorPrimary"
-            android:onClick="updatePelicula"
-            android:text="agregar Pelicula" />
 
-        <Button
-            android:id="@+id/atrasBtn"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:background="@color/colorPrimary"
-            android:onClick="backAdmin"
-            android:text="Atras" />
+            android:layout_marginTop="55dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/atrasBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:onClick="backAdmin"
+                app:srcCompat="@android:drawable/ic_menu_revert" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2" />
+
+            <ImageButton
+                android:id="@+id/agregarBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:onClick="updatePelicula"
+                app:srcCompat="@android:drawable/ic_menu_save" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

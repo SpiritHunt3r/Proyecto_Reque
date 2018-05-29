@@ -6,45 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".Pantallas.General.RegisterActivity">
 
-    <Button
-        android:id="@+id/registerBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="141dp"
-        android:background="@color/colorPrimary"
-        android:onClick="createUser"
-        android:text="REGISTER"
-        android:textColor="#FFFFFFFF"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="330dp" />
-
-    <Button
-        android:id="@+id/backBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="64dp"
-        android:background="@color/colorPrimary"
-        android:onClick="backMain"
-        android:text="BACK"
-        android:textColor="#FFFFFFFF"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="330dp" />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="264dp"
+        android:layout_height="match_parent"
 
         android:layout_alignParentTop="true"
-        android:layout_marginTop="42dp"
         android:orientation="vertical">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/main" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
 
         <EditText
             android:id="@+id/nombreText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:layout_weight="0.4"
             android:ems="10"
             android:gravity="center"
             android:hint="Enter your name"
@@ -54,8 +46,8 @@
             android:id="@+id/emailText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="0.4"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="15dp"
             android:ems="10"
             android:gravity="center"
             android:hint="Enter e-mail"
@@ -64,7 +56,7 @@
         <EditText
             android:id="@+id/passwordText"
             android:layout_width="match_parent"
-            android:layout_marginTop="15dp"
+            android:layout_weight="0.4"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:ems="10"
@@ -75,12 +67,52 @@
         <EditText
             android:id="@+id/passwordText2"
             android:layout_width="match_parent"
-            android:layout_marginTop="15dp"
+            android:layout_weight="0.4"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:ems="10"
             android:gravity="center"
             android:hint="Enter password again"
             android:inputType="textPassword" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
+
+        <Button
+            android:id="@+id/registerBtn"
+            android:layout_width="match_parent"
+            android:layout_weight="0.2"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimary"
+            android:onClick="createUser"
+            android:text="REGISTER"
+            android:textColor="#FFFFFFFF"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="330dp" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7" />
+
+        <Button
+            android:id="@+id/backBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimary"
+            android:onClick="backMain"
+            android:text="BACK"
+            android:textColor="#FFFFFFFF"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="330dp" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7" />
+
+
     </LinearLayout>
 </RelativeLayout>

@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ import com.example.juan.proyecto_reque.Clases.Voto;
 import com.example.juan.proyecto_reque.Pantallas.Admin.AddPeliculaAdminActivity;
 import com.example.juan.proyecto_reque.Pantallas.Admin.AdminActivity;
 import com.example.juan.proyecto_reque.Pantallas.Admin.DescpPeliculaAdminActivity;
+import com.example.juan.proyecto_reque.Pantallas.General.MainActivity;
 import com.example.juan.proyecto_reque.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -54,11 +56,14 @@ public class PeliculasAdminFragment extends android.support.v4.app.Fragment {
     private int pvoto;
     private Pelicula pr;
     private EditText filterText;
+    private ImageButton exit;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
 
     }
 
@@ -71,6 +76,24 @@ public class PeliculasAdminFragment extends android.support.v4.app.Fragment {
         arrayList = new ArrayList<>();
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+
+
+
+
+        exit = rootView.findViewById(R.id.imageButton);
+
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                auth.signOut();
+                Intent i = new Intent(getContext(), MainActivity.class);
+                startActivity(i);
+            }
+        });
+
+
+
+
         FloatingActionButton fab1 = (FloatingActionButton) rootView.findViewById(R.id.settings);
         fab1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,7 +172,7 @@ public class PeliculasAdminFragment extends android.support.v4.app.Fragment {
                                 }
                                 myref.removeValue();
                                 DatabaseReference checkuser =FirebaseDatabase.getInstance().getReference().child("Usuarios");
-                                checkuser.addValueEventListener(new ValueEventListener() {
+                                checkuser.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         for (DataSnapshot ds:dataSnapshot.getChildren()){
@@ -158,7 +181,6 @@ public class PeliculasAdminFragment extends android.support.v4.app.Fragment {
                                                 Pelicula p = dss.getValue(Pelicula.class);
                                                 if (p.getNombre().equals(IdN)){
                                                     DatabaseReference tmp = dss.getRef();
-                                                    Log.d("REFERENCE",tmp.toString());
                                                     tmp.removeValue();
                                                 }
                                             }

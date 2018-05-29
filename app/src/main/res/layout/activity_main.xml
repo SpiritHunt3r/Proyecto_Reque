@@ -6,50 +6,91 @@
     android:layout_height="match_parent"
     tools:context=".Pantallas.General.MainActivity">
 
-    <EditText
-        android:id="@+id/emailText"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="104dp"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="Enter e-mail"
-        android:inputType="textEmailAddress" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/passwordText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="194dp"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="Enter password"
-        android:inputType="textPassword" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
-    <Button
-        android:id="@+id/loginBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="149dp"
-        android:background="@color/colorPrimary"
-        android:onClick="login"
-        android:text="LOGIN"
-        android:textColor="#FFFFFFFF" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/main" />
 
-    <Button
-        android:id="@+id/signupBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="64dp"
-        android:background="@color/colorPrimary"
-        android:onClick="ORegister"
-        android:text="SINGUP"
-        android:textColor="#FFFFFFFF" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <EditText
+            android:id="@+id/emailText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_weight="0.4"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Enter e-mail"
+            android:inputType="textEmailAddress" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5" />
+
+        <EditText
+            android:id="@+id/passwordText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:ems="10"
+            android:layout_weight="0.4"
+            android:gravity="center"
+            android:hint="Enter password"
+            android:inputType="textPassword" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
+
+        <Button
+            android:id="@+id/loginBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="0.2"
+            android:background="@color/colorPrimary"
+            android:onClick="login"
+            android:text="LOGIN"
+            android:textColor="#FFFFFFFF" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7" />
+
+        <Button
+            android:id="@+id/signupBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="0.2"
+            android:background="@color/colorPrimary"
+            android:onClick="ORegister"
+            android:text="SINGUP"
+            android:textColor="#FFFFFFFF" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7" />
+    </LinearLayout>
 
 </RelativeLayout>
